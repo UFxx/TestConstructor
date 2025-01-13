@@ -12,8 +12,6 @@ export const QuestionsList = () => {
   );
   const dispatch = useAppDispatch();
 
-  console.log(questions);
-
   return (
     <>
       <Container>

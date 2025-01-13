@@ -37,7 +37,10 @@ export const QuestionEditor = () => {
               changeQuestionTitle({
                 testId: testId,
                 questId: questId,
-                newName: e.target.value
+                newName:
+                  e.target.value === '' || e.target.value === ' '
+                    ? 'Вопрос'
+                    : e.target.value
               })
             )
           }

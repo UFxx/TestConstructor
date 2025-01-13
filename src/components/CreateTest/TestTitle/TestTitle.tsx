@@ -28,18 +28,19 @@ export const TestTitle = () => {
             dispatch(
               changeTestTitle({
                 newName: e.target.value,
-                idx: testId
+                testId: testId
               })
             );
           }}
           placeholder="Введите название теста"
           defaultValue={title}
         />
-        <DeleteImage
-          src={deleteImage}
-          alt="delete image"
+        <Link
+          to="/alltests"
           onClick={() => dispatch(deleteTest({ testId: testId }))}
-        />
+        >
+          <DeleteImage src={deleteImage} alt="delete image" />
+        </Link>
       </Container>
     </>
   );
