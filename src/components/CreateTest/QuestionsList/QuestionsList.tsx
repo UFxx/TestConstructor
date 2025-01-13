@@ -4,11 +4,13 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Question } from './Question/Question';
 import { addQuestion } from '../../../TestReducer';
 
+import { TestIdContext } from '../../../contexts';
+import { useContext } from 'react';
+
 export const QuestionsList = () => {
-  const testId = new URL(window.location.toString()).searchParams.get('testid');
+  const testId = useContext(TestIdContext).testId;
   const questions = useAppSelector(
-    (state) =>
-      state.tests.filter((test) => test.id.toString() === testId)[0].questions
+    (state) => state.tests.filter((test) => test.id === testId)[0].questions
   );
   const dispatch = useAppDispatch();
 
@@ -19,9 +21,8 @@ export const QuestionsList = () => {
         <QuestionsContainer>
           {questions.map((question) => (
             <Question
-              key={question.id}
-              testId={testId}
-              id={question.id}
+              key={`${testId}-${question.id}`}
+              questId={question.id}
               text={question.questionText}
             />
           ))}
@@ -61,9 +62,13 @@ const AddQuestion = styled.button`
   border: 2px solid ${colors.gray};
   border-radius: 100%;
   padding: 0 15px;
-  transition: 0.3s ease border;
   cursor: pointer;
+  transition: 0.3s ease border, 0.3s ease border-radius, 0.3s ease transform;
   &:hover {
+    border-radius: 5px;
     border: 2px solid gray;
+  }
+  &:active {
+    transform: scale(0.9);
   }
 `;

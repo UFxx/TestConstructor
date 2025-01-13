@@ -9,10 +9,14 @@ import { Link } from 'react-router-dom';
 import goBack from '../../../assets/go-back.svg';
 import deleteImage from '../../../assets/delete.svg';
 
+import { TestIdContext } from '../../../contexts';
+import { useContext } from 'react';
+
 export const TestTitle = () => {
-  const testId = new URL(window.location.toString()).searchParams.get('testid');
+  const testId = useContext(TestIdContext).testId;
+
   const title = useAppSelector(
-    (state) => state.tests.filter((t) => t.id.toString() === testId)[0].name
+    (state) => state.tests.filter((t) => t.id === testId)[0].name
   );
   const dispatch = useAppDispatch();
 
@@ -53,7 +57,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.input`
-  padding: 5px 0;
+  padding: 5px 10px;
   border-radius: 5px;
   font-size: ${fontSize.large}px;
   text-align: center;

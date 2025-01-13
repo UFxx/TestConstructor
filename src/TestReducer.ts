@@ -6,91 +6,200 @@ const initialState: ITest[] = localStorage.getItem('tests')
   ? JSON.parse(localStorage.getItem('tests')!)
   : [];
 
+// t --> test
+// q --> question
+// a --> answer
+
 const addTestReducer = createSlice({
   name: 'changeTest',
   initialState,
   reducers: {
     addTest: (state, action) => {
-      const testId = Number(action.payload.newId);
+      const testId = action.payload.newId;
       return [
         ...state,
-        { id: testId, name: '', img: '', completed: false, questions: [] }
+        {
+          id: testId,
+          name: 'Без названия',
+          img: '',
+          completed: false,
+          questions: []
+        }
       ];
     },
     deleteTest: (state, action) => {
-      const testId = Number(action.payload.testId);
-      return [...state.filter((test) => test.id !== testId)];
+      const testId = action.payload.testId;
+      return [...state.filter((t) => t.id !== testId)];
     },
     changeTestTitle: (state, action) => {
-      const testId = Number(action.payload.testId);
-      const newName = action.payload.newName;
+      const testId = action.payload.testId;
+      let newName = action.payload.newName;
+
+      if (newName === '' || newName === ' ') {
+        newName = 'Без названия';
+      }
 
       return state.map((t) => {
         if (t.id === testId) {
           return { ...t, name: newName };
-        } else {
-          return t;
-        }
+        } else return t;
       });
     },
     addQuestion: (state, action) => {
-      const testId = Number(action.payload.testId);
+      const testId = action.payload.testId;
 
-      return state.map((test) => {
-        if (test.id === testId) {
+      return state.map((t) => {
+        if (t.id === testId) {
           return {
-            ...test,
+            ...t,
             questions: [
-              ...test.questions,
+              ...t.questions,
               {
-                id: test.questions.length,
+                id: t.questions.length,
                 questionText: 'Вопрос',
                 answers: []
               }
             ]
           };
-        } else {
-          return test;
-        }
+        } else return t;
       });
     },
     deleteQuestion: (state, action) => {
-      const testId = Number(action.payload.testId);
-      const questId = Number(action.payload.questId);
+      const testId = action.payload.testId;
+      const questId = action.payload.questId;
 
-      return state.map((test) => {
-        if (test.id === testId) {
+      return state.map((t) => {
+        if (t.id === testId) {
           return {
-            ...test,
-            questions: [
-              ...test.questions.filter((question) => question.id !== questId)
-            ]
+            ...t,
+            questions: [...t.questions.filter((q) => q.id !== questId)]
           };
-        } else {
-          return test;
-        }
+        } else return t;
       });
     },
     changeQuestionTitle: (state, action) => {
-      const testId = Number(action.payload.testId);
-      const questId = Number(action.payload.questId);
-      const newName = action.payload.newName;
+      const testId = action.payload.testId;
+      const questId = action.payload.questId;
+      let newName = action.payload.newName;
 
-      return state.map((test) => {
-        if (test.id === testId) {
+      if (newName === '' || newName === ' ') {
+        newName = 'Без названия';
+      }
+
+      return state.map((t) => {
+        if (t.id === testId) {
           return {
-            ...test,
-            questions: test.questions.map((question) => {
-              if (question.id === questId) {
-                return { ...question, questionText: newName };
-              } else {
-                return question;
-              }
+            ...t,
+            questions: t.questions.map((q) => {
+              if (q.id === questId) {
+                return { ...q, questionText: newName };
+              } else return q;
             })
           };
-        } else {
-          return test;
-        }
+        } else return t;
+      });
+    },
+    addAnswer: (state, action) => {
+      const testId = action.payload.testId;
+      const questId = action.payload.questId;
+
+      return state.map((t) => {
+        if (t.id === testId) {
+          return {
+            ...t,
+            questions: t.questions.map((q) => {
+              if (q.id === questId) {
+                return {
+                  ...q,
+                  answers: [
+                    ...q.answers,
+                    {
+                      id: q.answers.length,
+                      answerText: 'Ответ',
+                      isRightAnswer: false
+                    }
+                  ]
+                };
+              } else return q;
+            })
+          };
+        } else return t;
+      });
+    },
+    deleteAnswer: (state, action) => {
+      const testId = action.payload.testId;
+      const questId = action.payload.questId;
+      const answerId = action.payload.answerId;
+
+      return state.map((t) => {
+        if (t.id === testId) {
+          return {
+            ...t,
+            questions: t.questions.map((q) => {
+              if (q.id === questId) {
+                return {
+                  ...q,
+                  answers: q.answers.filter((a) => a.id !== answerId)
+                };
+              } else return q;
+            })
+          };
+        } else return t;
+      });
+    },
+    changeAnswerTitle: (state, action) => {
+      const testId = action.payload.testId;
+      const questId = action.payload.questId;
+      const answerId = action.payload.answerId;
+      let newName = action.payload.newName;
+
+      if (newName === '' || newName === ' ') {
+        newName = 'Без названия';
+      }
+
+      return state.map((t) => {
+        if (t.id === testId) {
+          return {
+            ...t,
+            questions: t.questions.map((q) => {
+              if (q.id === questId) {
+                return {
+                  ...q,
+                  answers: q.answers.map((a) => {
+                    if (a.id === answerId) {
+                      return { ...a, answerText: newName };
+                    } else return a;
+                  })
+                };
+              } else return q;
+            })
+          };
+        } else return t;
+      });
+    },
+    setRightAnswer: (state, action) => {
+      const testId = action.payload.testId;
+      const questId = action.payload.questId;
+      const answerId = action.payload.answerId;
+
+      return state.map((t) => {
+        if (t.id === testId) {
+          return {
+            ...t,
+            questions: t.questions.map((q) => {
+              if (q.id === questId) {
+                return {
+                  ...q,
+                  answers: q.answers.map((a) => {
+                    if (a.id === answerId) {
+                      return { ...a, isRightAnswer: !a.isRightAnswer };
+                    } else return { ...a, isRightAnswer: false };
+                  })
+                };
+              } else return q;
+            })
+          };
+        } else return t;
       });
     }
   }
@@ -102,7 +211,11 @@ export const {
   addQuestion,
   deleteQuestion,
   changeQuestionTitle,
-  deleteTest
+  deleteTest,
+  addAnswer,
+  deleteAnswer,
+  changeAnswerTitle,
+  setRightAnswer
 } = addTestReducer.actions;
 export const selectValue = (state: RootState) => state.tests;
 export default addTestReducer.reducer;

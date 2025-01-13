@@ -13,7 +13,7 @@ export const Test = ({ id, name, img, questions, completed }: ITest) => {
       <Image src={img} alt={`image ${id}`} />
       <Info>
         <Title>{name}</Title>
-        <NumberOfQuestions>{questions.length} вопросов</NumberOfQuestions>
+        <NumberOfQuestions>Вопросов: {questions.length}</NumberOfQuestions>
       </Info>
       {completed && <Check src={CheckIcon} />}
     </Container>
@@ -32,6 +32,9 @@ const Container = styled(Link)`
   &:hover {
     box-shadow: 0 0 2px 1px ${colors.black}30;
     transform: scale(1.01);
+  }
+  &:active {
+    transform: scale(0.95);
   }
 `;
 

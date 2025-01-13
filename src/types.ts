@@ -9,3 +9,8 @@ export interface ITest {
   }[];
   completed: boolean;
 }
+
+export interface IIds {
+  testId: number;
+  questId: number;
+}

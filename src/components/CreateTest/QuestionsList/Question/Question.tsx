@@ -5,24 +5,27 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../../../hooks';
 import { deleteQuestion } from '../../../../TestReducer';
 
-interface IProps {
-  id: number;
+import { TestIdContext } from '../../../../contexts';
+import { useContext } from 'react';
+
+interface IQuestion {
+  questId: number;
   text: string;
-  testId: string | null;
 }
 
-export const Question = ({ id, text, testId }: IProps) => {
+export const Question = ({ questId, text }: IQuestion) => {
+  const testId = useContext(TestIdContext).testId;
   const dispatch = useAppDispatch();
 
   return (
     <>
       <Container>
-        <Title to={`/createtest/question?testid=${testId}?questid=${id}`}>
+        <Title to={`/createtest/question?testid=${testId}?questid=${questId}`}>
           {text}
         </Title>
         <DeleteButton
           onClick={() =>
-            dispatch(deleteQuestion({ testId: testId, questId: id }))
+            dispatch(deleteQuestion({ testId: testId, questId: questId }))
           }
         >
           -
@@ -41,6 +44,10 @@ const Container = styled.div`
 const Title = styled(Link)`
   font-size: ${fontSize.medium}px;
   font-weight: ${fontWeight.extraLight};
+  transition: 0.2s ease opacity;
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 const DeleteButton = styled.button`

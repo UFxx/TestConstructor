@@ -24,13 +24,14 @@ export const AddTestButton = () => {
 
 const AddTest = styled(Link)`
   background: transparent;
-  border: 2px solid ${colors.black}50;
   font-size: 42px;
   border-radius: 100%;
   padding: 4px 20px;
+  border: 2px solid ${colors.gray};
   cursor: pointer;
-  transition: 0.3s ease border;
+  transition: 0.3s ease border, 0.3s ease border-radius;
   &:hover {
-    border: 2px solid ${colors.black};
+    border-radius: 5px;
+    border: 2px solid gray;
   }
 `;
