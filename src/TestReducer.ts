@@ -27,9 +27,19 @@ const addTestReducer = createSlice({
         }
       ];
     },
+    addTestImage: (state, action) => {
+      const testId = action.payload.testId;
+      const dataURL = action.payload.dataURL;
+
+      return state.map((t) => {
+        if (t.id === testId) {
+          return { ...t, img: dataURL };
+        } else return t;
+      });
+    },
     deleteTest: (state, action) => {
       const testId = action.payload.testId;
-      return [...state.filter((t) => t.id !== testId)];
+      return state.filter((t) => t.id !== testId);
     },
     changeTestTitle: (state, action) => {
       const testId = action.payload.testId;
@@ -57,9 +67,28 @@ const addTestReducer = createSlice({
               {
                 id: t.questions.length,
                 questionText: 'Вопрос',
+                questionImage: '',
                 answers: []
               }
             ]
+          };
+        } else return t;
+      });
+    },
+    addQuestionImage: (state, action) => {
+      const testId = action.payload.testId;
+      const questId = action.payload.questId;
+      const dataURL = action.payload.dataURL;
+
+      return state.map((t) => {
+        if (t.id === testId) {
+          return {
+            ...t,
+            questions: t.questions.map((q) => {
+              if (q.id === questId) {
+                return { ...q, questionImage: dataURL };
+              } else return q;
+            })
           };
         } else return t;
       });
@@ -207,8 +236,10 @@ const addTestReducer = createSlice({
 
 export const {
   addTest,
+  addTestImage,
   changeTestTitle,
   addQuestion,
+  addQuestionImage,
   deleteQuestion,
   changeQuestionTitle,
   deleteTest,

@@ -40,7 +40,7 @@ const Container = styled(Link)`
 
 const Image = styled.img`
   width: 100%;
-  height: 110px;
+  height: 130px;
   border-radius: 10px 10px 0 0;
 `;
 
@@ -54,7 +54,7 @@ const Title = styled.p`
 `;
 
 const NumberOfQuestions = styled.p`
-  margin-top: 20px;
+  margin-top: 10px;
   font-size: ${fontSize.small};
   font-weight: ${fontWeight.extraLight};
 `;

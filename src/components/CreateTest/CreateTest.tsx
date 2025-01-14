@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 
-import { TestTitle } from './TestTitle/TestTitle';
-import { QuestionsList } from './QuestionsList/QuestionsList';
-
 import { TestIdContext } from '../../contexts';
 
+import { TestTitle } from './TestTitle/TestTitle';
+import { QuestionsList } from './QuestionsList/QuestionsList';
+import { AddTestImage } from './AddTetsImage/AddTestImage';
+
 export const CreateTest = () => {
-  const testId = new URL(window.location.toString()).searchParams.get(
-    'testid'
-  )!;
+  const testId = new URL(window.location.toString()).searchParams.get('testid');
 
   return (
     <>
       <Container>
         <TestIdContext.Provider value={{ testId: Number(testId) }}>
           <TestTitle />
+          <AddTestImage />
           <QuestionsList />
         </TestIdContext.Provider>
       </Container>

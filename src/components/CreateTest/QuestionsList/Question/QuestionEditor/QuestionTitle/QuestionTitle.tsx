@@ -66,6 +66,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   column-gap: 15px;
+  margin-top: 20px;
 `;
 
 const Title = styled.input`

@@ -5,6 +5,7 @@ export interface ITest {
   questions: {
     id: number;
     questionText: string;
+    questionImage: string;
     answers: { id: number; answerText: string; isRightAnswer: boolean }[];
   }[];
   completed: boolean;

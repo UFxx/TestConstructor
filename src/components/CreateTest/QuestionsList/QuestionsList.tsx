@@ -38,7 +38,7 @@ export const QuestionsList = () => {
 const Container = styled.div`
   position: relative;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 
 const Title = styled.p`
