@@ -11,7 +11,7 @@ import { changeAnswerTitle } from '../../../../../../../../TestReducer';
 import { useContext } from 'react';
 import { IdsContext } from '../../../../../../../../contexts';
 
-export const AnswerTextInput = ({
+export const ChangeAnswerTitle = ({
   answerText,
   answerId
 }: Omit<IAnswer, 'isRightAnswer'>) => {

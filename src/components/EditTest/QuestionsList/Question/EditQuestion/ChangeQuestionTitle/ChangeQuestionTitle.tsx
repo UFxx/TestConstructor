@@ -16,7 +16,7 @@ import deleteIcon from '../../../../../../assets/delete.svg';
 import { IdsContext } from '../../../../../../contexts';
 import { useContext } from 'react';
 
-export const QuestionTitle = () => {
+export const ChangeQuestionTitle = () => {
   const ids = useContext(IdsContext);
 
   const quest = useAppSelector(

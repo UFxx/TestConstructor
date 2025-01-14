@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import { AnswerTextInput } from './AnswerTextInput/AnswerTextInput';
+import { ChangeAnswerTitle } from './ChangeAnswerTitle/ChangeAnswerTitle';
 
-import { IsRightAnswer } from './IsRightAnswer/IsRightAnswer';
+import { ChangeRightAnswer } from './ChangeRightAnswer/ChangeRightAnswer';
 import { DeleteAnswer } from './DeleteAnswer/DeleteAnswer';
 
 export interface IAnswer {
@@ -15,8 +15,8 @@ export const Answer = ({ answerId, answerText, isRightAnswer }: IAnswer) => {
   return (
     <>
       <Container>
-        <AnswerTextInput answerText={answerText} answerId={answerId} />
-        <IsRightAnswer isRightAnswer={isRightAnswer} answerId={answerId} />
+        <ChangeAnswerTitle answerText={answerText} answerId={answerId} />
+        <ChangeRightAnswer isRightAnswer={isRightAnswer} answerId={answerId} />
         <DeleteAnswer answerId={answerId} />
       </Container>
     </>

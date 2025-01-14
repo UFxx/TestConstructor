@@ -8,7 +8,7 @@ import { addAnswer } from '../../../../../../TestReducer';
 import { IdsContext } from '../../../../../../contexts';
 import { useContext } from 'react';
 
-export const Answers = () => {
+export const AnswersList = () => {
   const ids = useContext(IdsContext);
   const answers = useAppSelector(
     (state) =>

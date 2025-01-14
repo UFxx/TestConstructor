@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { AllTests } from './components/AllTests/AllTests';
-import { CreateTest } from './components/CreateTest/CreateTest';
+import { EditTest } from './components/EditTest/EditTest';
 import { Header } from './components/Header/Header';
-import { QuestionEditor } from './components/CreateTest/QuestionsList/Question/QuestionEditor/QuestionEditor';
+import { EditQuestion } from './components/EditTest/QuestionsList/Question/EditQuestion/EditQuestion';
 import { useEffect } from 'react';
 import { useAppSelector } from './hooks';
 
@@ -21,11 +21,8 @@ function App() {
         <Routes>
           <Route path="/" element={<AllTests />}></Route>
           <Route path="/alltests" element={<AllTests />}></Route>
-          <Route path="/createtest" element={<CreateTest />}></Route>
-          <Route
-            path="/createtest/question"
-            element={<QuestionEditor />}
-          ></Route>
+          <Route path="/createtest" element={<EditTest />}></Route>
+          <Route path="/createtest/question" element={<EditQuestion />}></Route>
         </Routes>
       </BrowserRouter>
     </>

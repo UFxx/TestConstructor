@@ -9,7 +9,7 @@ import { useAppDispatch } from '../../../../../../../../hooks';
 import { useContext } from 'react';
 import { IdsContext } from '../../../../../../../../contexts';
 
-export const IsRightAnswer = ({
+export const ChangeRightAnswer = ({
   isRightAnswer,
   answerId
 }: Omit<IAnswer, 'answerText'>) => {

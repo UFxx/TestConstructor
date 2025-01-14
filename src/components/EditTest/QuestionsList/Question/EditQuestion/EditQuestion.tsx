@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-import { Answers } from './Answers/Answers';
-import { QuestionTitle } from './QuestionTitle/QuestionTitle';
+import { AnswersList } from './AnswersList/AnswersList';
+import { ChangeQuestionTitle } from './ChangeQuestionTitle/ChangeQuestionTitle';
 import { IdsContext } from '../../../../../contexts';
 import { AddQuestionImage } from './AddQuestionImage/AddQuestionImage';
 import { useAppSelector } from '../../../../../hooks';
 
-export const QuestionEditor = () => {
+export const EditQuestion = () => {
   const questId = new URL(window.location.toString()).searchParams
     .get('testid')
     ?.split('=')[1];
@@ -29,9 +29,9 @@ export const QuestionEditor = () => {
           value={{ testId: Number(testId), questId: Number(questId) }}
         >
           <QuestionImage src={questionImage} alt="question image" />
-          <QuestionTitle />
+          <ChangeQuestionTitle />
           <AddQuestionImage />
-          <Answers />
+          <AnswersList />
         </IdsContext.Provider>
       </Container>
     </>

@@ -12,7 +12,7 @@ import deleteImage from '../../../assets/delete.svg';
 import { TestIdContext } from '../../../contexts';
 import { useContext } from 'react';
 
-export const TestTitle = () => {
+export const ChangeTestTitle = () => {
   const testId = useContext(TestIdContext).testId;
 
   const title = useAppSelector(
