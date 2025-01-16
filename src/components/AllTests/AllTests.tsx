@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { Test } from './Test/Test';
 import { AddTestButton } from './AddTestButton/AddTestButton';
 import { useAppSelector } from '../../hooks';
+import { IRole } from '../../types';
 
-export const AllTests = () => {
+export const AllTests = ({ role }: { role: IRole }) => {
   const tests = useAppSelector((state) => state.tests);
 
   return (
@@ -18,10 +19,11 @@ export const AllTests = () => {
             img={test.img}
             completed={test.completed}
             questions={test.questions}
+            role={role}
           />
         );
       })}
-      <AddTestButton />
+      {role == 'admin' && <AddTestButton />}
     </MainContainer>
   );
 };

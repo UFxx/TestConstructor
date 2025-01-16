@@ -10,8 +10,8 @@ const initialState: ITest[] = localStorage.getItem('tests')
 // q --> question
 // a --> answer
 
-const addTestReducer = createSlice({
-  name: 'changeTest',
+const TestsReducer = createSlice({
+  name: 'changeTests',
   initialState,
   reducers: {
     addTest: (state, action) => {
@@ -247,6 +247,6 @@ export const {
   deleteAnswer,
   changeAnswerTitle,
   setRightAnswer
-} = addTestReducer.actions;
+} = TestsReducer.actions;
 export const selectValue = (state: RootState) => state.tests;
-export default addTestReducer.reducer;
+export default TestsReducer.reducer;

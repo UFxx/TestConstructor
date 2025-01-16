@@ -22,6 +22,17 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     color: ${colors.black};
   }
+
+  button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid ${colors.gray};
+    transition: 0.3s ease border;
+    &:hover {
+      border: 2px solid gray;
+    }
+  }
 `;
 
 createRoot(document.getElementById('root')!).render(

@@ -5,11 +5,18 @@ import { Link } from 'react-router-dom';
 
 import CheckIcon from '../../../assets/check.png';
 
-import { ITest } from '../../../types';
+import { IRole, ITest } from '../../../types';
 
-export const Test = ({ id, name, img, questions, completed }: ITest) => {
+export const Test = ({
+  id,
+  name,
+  img,
+  questions,
+  completed,
+  role
+}: ITest & { role: IRole }) => {
   return (
-    <Container to={`/createtest?testid=${id}`}>
+    <Container to={`/${role === 'admin' ? 'create' : 'exec'}test?testid=${id}`}>
       <Image src={img} alt={`image ${id}`} />
       <Info>
         <Title>{name}</Title>
