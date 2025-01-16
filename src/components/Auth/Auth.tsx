@@ -18,8 +18,8 @@ export const Auth = ({ setIsAuth, isAuth, setRole }: IAuth) => {
     }
   }, [isAuth]);
 
-  const loginInput = useRef<HTMLInputElement>();
-  const passwordInput = useRef<HTMLInputElement>();
+  const loginInput = useRef<HTMLInputElement>(null);
+  const passwordInput = useRef<HTMLInputElement>(null);
 
   function auth(): void {
     const login: string | undefined = loginInput.current?.value;
