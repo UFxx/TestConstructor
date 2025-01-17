@@ -11,7 +11,11 @@ export interface IAnswer {
   isRightAnswer: boolean;
 }
 
-export const Answer = ({ answerId, answerText, isRightAnswer }: IAnswer) => {
+export const EditAnswer = ({
+  answerId,
+  answerText,
+  isRightAnswer
+}: IAnswer) => {
   return (
     <>
       <Container>

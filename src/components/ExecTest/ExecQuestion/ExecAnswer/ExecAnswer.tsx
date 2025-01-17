@@ -1,37 +1,58 @@
 import styled from 'styled-components';
 
-import { IAnswer } from '../../../EditTest/QuestionsList/Question/EditQuestion/AnswersList/Answer/Answer';
+import { IAnswer } from '../../../EditTest/QuestionsList/Question/EditQuestion/EditAnswersList/EditAnswer/EditAnswer';
 import { colors, fontSize } from '../../../../styleVariables';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useAppDispatch } from '../../../../hooks';
+import { markAnswerAsSelected } from '../../../../TestReducer';
+import { IIds } from '../../../../types';
 
 export const ExecAnswer = ({
-  // answerId,
   answerText,
-  isRightAnswer,
-  setAnswerChecked
-}: IAnswer & { setAnswerChecked: Dispatch<SetStateAction<boolean>> }) => {
+  setAnswerChecked,
+  isSelected,
+  answerId,
+  testId,
+  questId
+}: IAnswer & {
+  setAnswerChecked: Dispatch<SetStateAction<boolean>>;
+  isSelected: boolean;
+} & IIds) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isSelected) {
+      setAnswerChecked(true);
+    }
+  });
+
   return (
     <>
-      <Container>
-        <AnswerContainer>
-          <Title htmlFor={answerText}>{answerText}</Title>
-          <CheckboxContainer>
-            <Checkbox
-              type="radio"
-              name="answer-radio"
-              id={answerText}
-              data-isright={isRightAnswer}
-              onChange={() => setAnswerChecked(true)}
-            />
-            <StyledCheckbox htmlFor={answerText} />
-          </CheckboxContainer>
-        </AnswerContainer>
-      </Container>
+      <AnswerContainer>
+        <Title htmlFor={answerText}>{answerText}</Title>
+        <CheckboxContainer>
+          <Checkbox
+            type="radio"
+            name="answer-radio"
+            id={answerText}
+            checked={isSelected}
+            onChange={() => {
+              setAnswerChecked(true);
+              dispatch(
+                markAnswerAsSelected({
+                  testId: testId,
+                  questId: questId - 1,
+                  answerId: answerId
+                })
+              );
+            }}
+          />
+          <StyledCheckbox htmlFor={answerText} />
+        </CheckboxContainer>
+      </AnswerContainer>
     </>
   );
 };
-
-const Container = styled.div``;
 
 const AnswerContainer = styled.div`
   display: flex;
@@ -57,7 +78,7 @@ const CheckboxContainer = styled.div`
 const Checkbox = styled.input`
   display: none;
   &:checked + label {
-    background-color: #a3be8c;
+    background-color: ${colors.green};
   }
 `;
 

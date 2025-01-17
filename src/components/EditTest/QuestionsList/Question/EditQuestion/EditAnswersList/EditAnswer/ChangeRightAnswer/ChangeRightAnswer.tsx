@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { colors } from '../../../../../../../../styleVariables';
 
-import { IAnswer } from '../Answer';
+import { IAnswer } from '../EditAnswer';
 
 import { setRightAnswer } from '../../../../../../../../TestReducer';
 import { useAppDispatch } from '../../../../../../../../hooks';
@@ -40,7 +40,7 @@ const IsRightAnswerContainer = styled.div<{ $isRightAnswer: boolean }>`
   border-radius: 5px;
   border: 2px solid ${colors.gray};
   background-color: ${(props) =>
-    props.$isRightAnswer ? '#a3be8c' : 'transparent'};
+    props.$isRightAnswer ? `${colors.green}` : 'transparent'};
   transition: 0.3s ease background-color;
   &:hover {
     background-color: #a3be8c70;

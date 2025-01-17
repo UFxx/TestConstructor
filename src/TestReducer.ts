@@ -23,7 +23,8 @@ const TestsReducer = createSlice({
           name: 'Без названия',
           img: '',
           completed: false,
-          questions: []
+          questions: [],
+          passingScores: 0
         }
       ];
     },
@@ -52,6 +53,16 @@ const TestsReducer = createSlice({
       return state.map((t) => {
         if (t.id === testId) {
           return { ...t, name: newName };
+        } else return t;
+      });
+    },
+    changeTestPassingScores: (state, action) => {
+      const testId = action.payload.testId;
+      const newPassingScores = action.payload.passingScores;
+
+      return state.map((t) => {
+        if (t.id === testId) {
+          return { ...t, passingScores: newPassingScores };
         } else return t;
       });
     },
@@ -128,6 +139,31 @@ const TestsReducer = createSlice({
         } else return t;
       });
     },
+    markAnswerAsSelected: (state, action) => {
+      const testId = action.payload.testId;
+      const questId = action.payload.questId;
+      const answerId = action.payload.answerId;
+
+      return state.map((t) => {
+        if (t.id === testId) {
+          return {
+            ...t,
+            questions: t.questions.map((q) => {
+              if (q.id === questId) {
+                return {
+                  ...q,
+                  answers: q.answers.map((a) => {
+                    if (a.id === answerId) {
+                      return { ...a, isSelected: true };
+                    } else return { ...a, isSelected: false };
+                  })
+                };
+              } else return q;
+            })
+          };
+        } else return t;
+      });
+    },
     addAnswer: (state, action) => {
       const testId = action.payload.testId;
       const questId = action.payload.questId;
@@ -145,7 +181,8 @@ const TestsReducer = createSlice({
                     {
                       id: q.answers.length,
                       answerText: 'Ответ',
-                      isRightAnswer: false
+                      isRightAnswer: false,
+                      isSelected: false
                     }
                   ]
                 };
@@ -238,11 +275,13 @@ export const {
   addTest,
   addTestImage,
   changeTestTitle,
+  changeTestPassingScores,
   addQuestion,
   addQuestionImage,
   deleteQuestion,
   changeQuestionTitle,
   deleteTest,
+  markAnswerAsSelected,
   addAnswer,
   deleteAnswer,
   changeAnswerTitle,

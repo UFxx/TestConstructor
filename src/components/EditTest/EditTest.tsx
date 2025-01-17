@@ -5,6 +5,7 @@ import { TestIdContext } from '../../contexts';
 import { ChangeTestTitle } from './ChangeTestTitle/ChangeTestTitle';
 import { QuestionsList } from './QuestionsList/QuestionsList';
 import { AddTestImage } from './AddTetsImage/AddTestImage';
+import { SetPassingScores } from './SetPassingScores/SetPassingScores';
 
 export const EditTest = () => {
   const testId = new URL(window.location.toString()).searchParams.get('testid');
@@ -16,6 +17,7 @@ export const EditTest = () => {
           <ChangeTestTitle />
           <AddTestImage />
           <QuestionsList />
+          <SetPassingScores />
         </TestIdContext.Provider>
       </Container>
     </>

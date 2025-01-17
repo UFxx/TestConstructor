@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { colors, fontSize } from '../../../../../../styleVariables';
 
-import { Answer } from './Answer/Answer';
+import { EditAnswer } from './EditAnswer/EditAnswer';
 import { useAppDispatch, useAppSelector } from '../../../../../../hooks';
 import { addAnswer } from '../../../../../../TestReducer';
 
 import { IdsContext } from '../../../../../../contexts';
 import { useContext } from 'react';
 
-export const AnswersList = () => {
+export const EditAnswersList = () => {
   const ids = useContext(IdsContext);
   const answers = useAppSelector(
     (state) =>
@@ -37,7 +37,7 @@ export const AnswersList = () => {
           </AnswerTitleContainer>
           {answers?.map((answer) => {
             return (
-              <Answer
+              <EditAnswer
                 key={`${ids.testId}-${ids.questId}-` + answer.id}
                 answerId={answer.id}
                 answerText={answer.answerText}

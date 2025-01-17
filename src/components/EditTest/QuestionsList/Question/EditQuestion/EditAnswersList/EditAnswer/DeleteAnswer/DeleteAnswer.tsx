@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../../../../../../../hooks';
 
 import { deleteAnswer } from '../../../../../../../../TestReducer';
 import { IdsContext } from '../../../../../../../../contexts';
-import { IAnswer } from '../Answer';
+import { IAnswer } from '../EditAnswer';
 
 export const DeleteAnswer = ({ answerId }: Pick<IAnswer, 'answerId'>) => {
   const ids = useContext(IdsContext);

@@ -14,7 +14,7 @@ export const Test = ({
   questions,
   completed,
   role
-}: ITest & { role: IRole }) => {
+}: Omit<ITest, 'passingScores' | 'currentScores'> & { role: IRole }) => {
   return (
     <Container to={`/${role === 'admin' ? 'create' : 'exec'}test?testid=${id}`}>
       <Image src={img} alt={`image ${id}`} />

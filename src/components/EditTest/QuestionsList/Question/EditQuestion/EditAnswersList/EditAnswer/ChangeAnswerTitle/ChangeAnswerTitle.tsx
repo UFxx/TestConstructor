@@ -5,7 +5,7 @@ import {
   colors
 } from '../../../../../../../../styleVariables';
 
-import { IAnswer } from '../Answer';
+import { IAnswer } from '../EditAnswer';
 import { useAppDispatch } from '../../../../../../../../hooks';
 import { changeAnswerTitle } from '../../../../../../../../TestReducer';
 import { useContext } from 'react';

@@ -2,13 +2,19 @@ export interface ITest {
   id: number;
   name: string;
   img: string;
+  completed: boolean;
+  passingScores: number;
   questions: {
     id: number;
     questionText: string;
     questionImage: string;
-    answers: { id: number; answerText: string; isRightAnswer: boolean }[];
+    answers: {
+      id: number;
+      answerText: string;
+      isRightAnswer: boolean;
+      isSelected: boolean;
+    }[];
   }[];
-  completed: boolean;
 }
 
 export interface IIds {

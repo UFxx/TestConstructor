@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { AnswersList } from './AnswersList/AnswersList';
+import { EditAnswersList } from './EditAnswersList/EditAnswersList';
 import { ChangeQuestionTitle } from './ChangeQuestionTitle/ChangeQuestionTitle';
 import { IdsContext } from '../../../../../contexts';
 import { AddQuestionImage } from './AddQuestionImage/AddQuestionImage';
@@ -31,7 +31,7 @@ export const EditQuestion = () => {
           <QuestionImage src={questionImage} alt="question image" />
           <ChangeQuestionTitle />
           <AddQuestionImage />
-          <AnswersList />
+          <EditAnswersList />
         </IdsContext.Provider>
       </Container>
     </>

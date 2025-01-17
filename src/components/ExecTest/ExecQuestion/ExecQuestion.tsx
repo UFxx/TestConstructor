@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 import { colors, fontSize } from '../../../styleVariables';
 
-import { createContext, useState } from 'react';
 import { useAppSelector } from '../../../hooks';
-import { ExecAnswer } from './ExecAnswer/ExecAnswer';
+
+import { createContext, useState } from 'react';
+
 import { Link } from 'react-router-dom';
+
+import { ExecAnswer } from './ExecAnswer/ExecAnswer';
 import { EndTest } from '../EndTest/EndTest';
 
 const IdsContext = createContext({ testId: 0, questId: 0 });
@@ -71,10 +74,13 @@ export const ExecQuestion = () => {
                 return (
                   <ExecAnswer
                     key={`${testId}-${questId}-${a.id}`}
-                    answerId={a.id}
                     answerText={a.answerText}
                     isRightAnswer={a.isRightAnswer}
                     setAnswerChecked={setAnswerChecked}
+                    isSelected={a.isSelected}
+                    answerId={a.id}
+                    testId={testId}
+                    questId={questId}
                   />
                 );
               })}
@@ -142,5 +148,5 @@ const Button = styled(Link)`
 
 const ErrorText = styled.p`
   margin-top: 10px;
-  color: #bf616a;
+  color: ${colors.red};
 `;

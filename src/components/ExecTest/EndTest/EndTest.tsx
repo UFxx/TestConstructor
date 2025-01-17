@@ -2,14 +2,44 @@ import styled from 'styled-components';
 import { fontSize, colors } from '../../../styleVariables';
 
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../../hooks';
 
 export const EndTest = () => {
+  const testId = Number(
+    new URL(window.location.toString()).searchParams
+      .get('testid')
+      ?.split('?')[0]
+  );
+
+  const test = useAppSelector(
+    (state) => state.tests.filter((t) => t.id === testId)[0]
+  );
+  const questions = test.questions;
+
+  const rightAnswersCount = (function (): number {
+    let counter: number = 0;
+    questions.forEach((q) => {
+      q.answers.forEach((a) => {
+        if (a.isRightAnswer && a.isSelected) {
+          counter += 1;
+        }
+      });
+    });
+    return counter;
+  })();
+
   return (
     <>
       <Container>
-        <Image src="" alt="" />
-        <Title>Вы прошли тест!</Title>
-        <TestResult>Ваш результат: .../...</TestResult>
+        <Title>
+          Вы {!(rightAnswersCount >= test.passingScores) && 'не'} прошли тест{' '}
+          {test.name}
+        </Title>
+        <Image src={test.img} alt={`${test.name} image`} />
+        <TestResult>
+          Ваш результат: {rightAnswersCount}/{questions.length}
+        </TestResult>
+        <TestResult>Проходной балл: {test.passingScores}</TestResult>
         <Button to="/alltests">На главную</Button>
       </Container>
     </>
