@@ -4,17 +4,21 @@ import { colors } from '../../styleVariables';
 import { Dispatch, SetStateAction } from 'react';
 
 import { Link } from 'react-router-dom';
+import { IRole } from '../../types';
 
 export const Header = ({
   setIsAuth,
-  isAuth
+  isAuth,
+  setRole
 }: {
   setIsAuth: Dispatch<SetStateAction<boolean>>;
   isAuth: boolean;
+  setRole: Dispatch<SetStateAction<IRole>>;
 }) => {
   function quitFromAccount() {
     setIsAuth(false);
-    localStorage.setItem('role', 'undefined');
+    setRole('unauthorized');
+    localStorage.setItem('role', 'unauthorized');
     localStorage.setItem('isAuth', JSON.stringify(false));
   }
 

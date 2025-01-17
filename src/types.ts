@@ -16,4 +16,4 @@ export interface IIds {
   questId: number;
 }
 
-export type IRole = 'user' | 'admin' | undefined;
+export type IRole = 'user' | 'admin' | 'unauthorized' | undefined;

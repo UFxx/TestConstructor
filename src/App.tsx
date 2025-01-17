@@ -13,7 +13,9 @@ import { Auth } from './components/Auth/Auth';
 import { IRole } from './types';
 
 function App() {
-  const [role, setRole] = useState<IRole>();
+  const [role, setRole] = useState<IRole>(
+    localStorage.getItem('role') as IRole
+  );
 
   const [isAuth, setIsAuth] = useState(() =>
     localStorage.getItem('isAuth')
@@ -24,15 +26,19 @@ function App() {
   const testsState = useAppSelector((state) => state.tests);
 
   useEffect(() => {
+    if (localStorage.getItem('role') === null) {
+      localStorage.setItem('role', 'unauthorized');
+      setRole('unauthorized');
+    }
     localStorage.setItem('isAuth', JSON.stringify(isAuth));
-    localStorage.setItem('role', JSON.stringify(role));
+    localStorage.setItem('role', role!);
     localStorage.setItem('tests', JSON.stringify(testsState));
   }, [testsState, isAuth, role]);
 
   return (
     <>
       <BrowserRouter>
-        <Header isAuth={isAuth} setIsAuth={setIsAuth} />
+        <Header isAuth={isAuth} setIsAuth={setIsAuth} setRole={setRole} />
         <Routes>
           <Route
             path="/"
