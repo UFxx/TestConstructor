@@ -4,16 +4,20 @@ import { colors, fontSize } from '../../../styleVariables';
 import { createContext, useState } from 'react';
 import { useAppSelector } from '../../../hooks';
 import { ExecAnswer } from './ExecAnswer/ExecAnswer';
+import { Link } from 'react-router-dom';
+import { EndTest } from '../EndTest/EndTest';
 
 const IdsContext = createContext({ testId: 0, questId: 0 });
 
 export const ExecQuestion = () => {
   const [answerChecked, setAnswerChecked] = useState(false);
-
-  const questId = Number(
-    new URL(window.location.toString()).searchParams
-      .get('testid')
-      ?.split('=')[1]
+  const [endOfTest, setEndOfTest] = useState(false);
+  const [questId, setQuestId] = useState(
+    Number(
+      new URL(window.location.toString()).searchParams
+        .get('testid')
+        ?.split('=')[1]
+    )
   );
 
   const testId = Number(
@@ -31,54 +35,71 @@ export const ExecQuestion = () => {
     (state) => state.tests.filter((t) => t.id === testId)[0].questions.length
   );
 
-  function nextQuestion() {
-    if (questId >= questionsLength) {
-      window.location.href = `/exectest/endtest?testid=${testId}`;
+  function nextQuestion(): void {
+    if (questId >= questionsLength && answerChecked) {
+      setEndOfTest(true);
     } else if (answerChecked) {
-      window.location.href = `/exectest/question?testid=${testId}?questid=${
-        questId + 1
-      }`;
+      setQuestId((prevValue) => prevValue + 1);
     }
+    setAnswerChecked(false);
   }
 
-  function prevQuestion() {
-    if (questId !== 1) {
-      window.location.href = `/exectest/question?testid=${testId}?questid=${
-        questId - 1
-      }`;
-    } else return;
+  function prevQuestion(): void {
+    if (questId <= 1) {
+      return;
+    } else {
+      setQuestId((prevValue) => prevValue - 1);
+    }
   }
 
   return (
     <>
       <IdsContext.Provider value={{ testId: testId, questId: questId }}>
-        <Container>
-          {quest.questionImage === '' ? null : (
-            <Image
-              src={quest.questionImage}
-              alt={`${quest.questionText} image`}
-            />
-          )}
-          <Title>{quest.questionText}</Title>
-          <AnswersContainer>
-            {quest.answers.map((a) => {
-              return (
-                <ExecAnswer
-                  key={`${testId}-${questId}-${a.id}`}
-                  answerId={a.id}
-                  answerText={a.answerText}
-                  isRightAnswer={a.isRightAnswer}
-                  setAnswerChecked={setAnswerChecked}
-                />
-              );
-            })}
-          </AnswersContainer>
-          <ButtonsContainer>
-            <Button onClick={prevQuestion}>Назад</Button>
-            <Button onClick={nextQuestion}>Далее</Button>
-          </ButtonsContainer>
-          {answerChecked ? null : <ErrorText>Выберите ответ</ErrorText>}
-        </Container>
+        {endOfTest ? (
+          <EndTest />
+        ) : (
+          <Container>
+            {quest.questionImage === '' ? null : (
+              <Image
+                src={quest.questionImage}
+                alt={`${quest.questionText} image`}
+              />
+            )}
+            <Title>{quest.questionText}</Title>
+            <AnswersContainer>
+              {quest.answers.map((a) => {
+                return (
+                  <ExecAnswer
+                    key={`${testId}-${questId}-${a.id}`}
+                    answerId={a.id}
+                    answerText={a.answerText}
+                    isRightAnswer={a.isRightAnswer}
+                    setAnswerChecked={setAnswerChecked}
+                  />
+                );
+              })}
+            </AnswersContainer>
+            <ButtonsContainer>
+              <Button
+                to={`/exectest/question?testid=${testId}?questid=${
+                  questId - 1
+                }`}
+                onClick={prevQuestion}
+              >
+                Назад
+              </Button>
+              <Button
+                to={`/exectest/question?testid=${testId}?questid=${
+                  questId + 1
+                }`}
+                onClick={nextQuestion}
+              >
+                Далее
+              </Button>
+            </ButtonsContainer>
+            {answerChecked ? null : <ErrorText>Выберите ответ</ErrorText>}
+          </Container>
+        )}
       </IdsContext.Provider>
     </>
   );
@@ -108,7 +129,7 @@ const ButtonsContainer = styled.div`
   column-gap: 20px;
 `;
 
-const Button = styled.button`
+const Button = styled(Link)`
   margin-top: 10px;
   padding: 5px 10px;
   border: 2px solid ${colors.gray};
