@@ -1,0 +1,10 @@
+Django
+djangorestframework
+django-cors-headers
+Pillow
+django-sortedm2m
+django-jazzmin
+djoser
+django-debug-toolbar
+django-filter
+drf-spectacular
