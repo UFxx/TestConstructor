@@ -30,8 +30,8 @@ class Test(models.Model):
     questions = SortedManyToManyField('Question', blank=True)
 
     class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
+        verbose_name = 'Тест'
+        verbose_name_plural = 'Тесты'
 
     def __str__(self):
         return f"{self.title}"
