@@ -20,6 +20,7 @@ export const Header = ({
     setRole('unauthorized');
     localStorage.setItem('role', 'unauthorized');
     localStorage.setItem('isAuth', JSON.stringify(false));
+    localStorage.removeItem("JWT")
   }
 
   return (

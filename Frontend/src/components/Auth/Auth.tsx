@@ -25,27 +25,30 @@ export const Auth = ({ setIsAuth, isAuth, setRole }: IAuth) => {
     const login: string | undefined = loginInput.current?.value;
     const password: string | undefined = passwordInput.current?.value;
 
-    if (login === 'admin' && password === 'admin') {
-      setIsAuth(true);
-      setRole('admin');
-    } else if (login === 'user' && password === 'user') {
-      setIsAuth(true);
-      setRole('user');
-    } else return;
+    fetch('http://127.0.0.1:8000/auth/jwt/create/', {
+      method: 'POST',
+      body: JSON.stringify(
+        { 
+          username: login, 
+          password: password
+         }
+      ),
+       headers: {"Content-Type": "application/json "}
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.access) {
+        localStorage.setItem('JWT', data.access)
+        setIsAuth(true);
+        setRole('admin');
+      } else return
+    });
+
   }
 
   function authOnEnter(e: React.KeyboardEvent): void {
-    const password: string | undefined = passwordInput.current?.value;
-    const login: string | undefined = loginInput.current?.value;
-
     if (e.key === 'Enter') {
-      if (login === 'admin' && password === 'admin') {
-        setIsAuth(true);
-        setRole('admin');
-      } else if (login === 'user' && password === 'user') {
-        setIsAuth(true);
-        setRole('user');
-      } else return;
+      auth()
     }
   }
 
