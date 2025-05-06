@@ -24,14 +24,14 @@ JAZZMIN_SETTINGS = {
     # "site_icon": None,
 
     # Welcome text on the login screen
-    "welcome_sign": "Привет Дима ))",
+    "welcome_sign": "Админ панель",
 
     # # Copyright on the footer
     # "copyright": "Acme Library Ltd",
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string
-    "search_model": ["student_performance.Users"],
+    "search_model": ["core.User"],
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
     "user_avatar": None,
@@ -48,13 +48,12 @@ JAZZMIN_SETTINGS = {
 
         # external url that opens in a new window (Permissions can be added)
         {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
-        {"name": "Доп функции", "url": "additional_admin_features", "new_window": True},
-        {"name": 'Flower' , "url": 'http://127.0.0.1:5555/',"new_window": True },
+
         # model admin to link to (Permissions checked against model)
-        {"model": "student_performance.Users"},
+        {"model": "core.User"},
 
         # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"app": "student_performance"},
+        {"app": "core"},
     ],
 
     #############
@@ -63,9 +62,9 @@ JAZZMIN_SETTINGS = {
 
     # Additional links to include in the user menu on the top right ("app" url type is not allowed)
     "usermenu_links": [
-        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
-        {"model": "student_performance.Users"},
-        {"name": "Additional_functions", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True}
+        # {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
+        {"model": "core.User"},
+        # {"name": "Additional_functions", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True}
     ],
 
     #############
@@ -138,7 +137,7 @@ JAZZMIN_SETTINGS = {
     # - carousel
     "changeform_format": "horizontal_tabs",
     # override change forms on a per modeladmin basis
-    "changeform_format_overrides": {"student_performance.Users": "collapsible", "auth.group": "vertical_tabs"},
+    "changeform_format_overrides": {"core.User": "collapsible", "auth.group": "vertical_tabs"},
     # # Add a language dropdown into the admin
     # "language_chooser": True,
 }
